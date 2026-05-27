@@ -9,13 +9,18 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('stock_adjustments', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
+ public function up(): void
+{
+    Schema::create('stock_adjustments', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('medicine_id')->constrained()->onDelete('cascade');
+        $table->foreignId('user_id')->constrained()->onDelete('cascade');
+        $table->enum('type', ['increase','decrease']);
+        $table->integer('quantity');
+        $table->string('reason')->nullable();
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.

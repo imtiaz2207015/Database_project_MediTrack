@@ -9,13 +9,19 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('prescriptions', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
+   public function up(): void
+{
+    Schema::create('prescriptions', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('customer_id')->constrained()->onDelete('cascade');
+        $table->foreignId('sale_id')->nullable()->constrained()->onDelete('set null');
+        $table->string('doctor_name');
+        $table->string('doctor_phone')->nullable();
+        $table->text('notes')->nullable();
+        $table->date('prescribed_date');
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.

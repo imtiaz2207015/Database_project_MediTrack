@@ -9,13 +9,20 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('sales', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
+  public function up(): void
+{
+    Schema::create('sales', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('customer_id')->nullable()->constrained()->onDelete('set null');
+        $table->foreignId('user_id')->constrained()->onDelete('cascade');
+        $table->decimal('total_amount', 10, 2);
+        $table->decimal('discount', 10, 2)->default(0);
+        $table->decimal('paid_amount', 10, 2);
+        $table->enum('payment_method', ['cash','card','mobile_banking'])->default('cash');
+        $table->enum('status', ['completed','pending','cancelled'])->default('completed');
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.
