@@ -156,31 +156,46 @@ const ctx = document.getElementById('salesChart').getContext('2d');
 new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: [
-            @foreach($monthlySales as $ms)
-                "{{ date('F', mktime(0,0,0,$ms->month,1)) }}",
-            @endforeach
-        ],
+        labels: @json($monthlySales->pluck('month')),
         datasets: [{
             label: 'Revenue (৳)',
-            data: [
-                @foreach($monthlySales as $ms)
-                    {{ $ms->total }},
-                @endforeach
+            data: @json($monthlySales->pluck('total')),
+            backgroundColor: [
+                'rgba(46,125,140,0.7)',
+                'rgba(46,125,140,0.7)',
+                'rgba(46,125,140,0.7)',
+                'rgba(46,125,140,0.7)',
+                'rgba(46,125,140,0.7)',
+                'rgba(46,125,140,0.85)',
             ],
-            backgroundColor: 'rgba(60,141,188,0.8)',
-            borderColor: 'rgba(60,141,188,1)',
-            borderWidth: 1
+            borderColor: 'rgba(46,125,140,1)',
+            borderWidth: 2,
+            borderRadius: 6,
         }]
     },
     options: {
         responsive: true,
-        scales: { y: { beginAtZero: true } }
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                callbacks: {
+                    label: ctx => '৳ ' + ctx.parsed.y.toLocaleString()
+                }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: { color: 'rgba(0,0,0,0.05)' },
+                ticks: {
+                    callback: val => '৳ ' + val.toLocaleString()
+                }
+            },
+            x: {
+                grid: { display: false }
+            }
+        }
     }
 });
 </script>
 @endpush
-
-{{-- Below are snippets from related views for reference --}}
-
-{{-- resources/views/customers/index.blade.php --}}

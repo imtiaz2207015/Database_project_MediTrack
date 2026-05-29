@@ -30,15 +30,17 @@ class DashboardController extends Controller
                            ->take(5)
                            ->get();
 
-        $monthlySales = Sale::select(
-                DB::raw('MONTH(created_at) as month'),
-                DB::raw('SUM(paid_amount) as total')
-            )
-            ->where('status', 'completed')
-            ->where('created_at', '>=', now()->subMonths(6))
-            ->groupBy('month')
-            ->orderBy('month')
-            ->get();
+      $monthlySales = collect(range(5, 0))->map(function($monthsAgo) {
+    $date  = now()->subMonths($monthsAgo);
+    $total = Sale::where('status', 'completed')
+                 ->whereYear('created_at', $date->year)
+                 ->whereMonth('created_at', $date->month)
+                 ->sum('paid_amount');
+    return [
+        'month' => $date->format('M Y'),
+        'total' => $total
+    ];
+});
 
         return view('dashboard', compact(
             'totalMedicines', 'totalSales', 'totalCustomers', 'totalRevenue',

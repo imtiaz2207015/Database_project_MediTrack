@@ -76,20 +76,30 @@
                     </td>
                     <td>{{ $sale->created_at->format('d M Y') }}</td>
                     <td>
-                       <a href="{{ route('sales.show', $sale) }}"
-                       class="btn btn-xs btn-info"><i class="fas fa-eye"></i></a>
-                       <a href="{{ route('sales.invoice', $sale) }}"
-                        class="btn btn-xs btn-success"
-                         title="Print Invoice">
-                         <i class="fas fa-file-invoice"></i>
-                       </a>
-                        <form action="{{ route('sales.destroy', $sale) }}"
-                              method="POST" class="d-inline"
-                              onsubmit="return confirm('Delete this sale and restore stock?')">
-                            @csrf @method('DELETE')
-                            <button class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></button>
-                        </form>
-                    </td>
+    <div class="dropdown">
+        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" 
+                type="button" data-toggle="dropdown" aria-expanded="false">
+            Actions
+        </button>
+        <div class="dropdown-menu dropdown-menu-right shadow">
+            <a class="dropdown-item" href="{{ route('sales.show', $sale) }}">
+                <i class="fas fa-eye text-info mr-2"></i> View Details
+            </a>
+            <a class="dropdown-item" href="{{ route('sales.invoice', $sale) }}">
+                <i class="fas fa-file-invoice text-success mr-2"></i> Print Invoice
+            </a>
+            <div class="dropdown-divider"></div>
+            <form action="{{ route('sales.destroy', $sale) }}"
+                  method="POST"
+                  onsubmit="return confirm('Delete this sale and restore stock?')">
+                @csrf @method('DELETE')
+                <button type="submit" class="dropdown-item text-danger">
+                    <i class="fas fa-trash mr-2"></i> Delete
+                </button>
+            </form>
+        </div>
+    </div>
+</td>
                 </tr>
                 @empty
                 <tr>
