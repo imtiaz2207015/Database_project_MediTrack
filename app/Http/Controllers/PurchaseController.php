@@ -95,9 +95,25 @@ class PurchaseController extends Controller
         return view('purchases.show', compact('purchase'));
     }
 
-    public function edit(Purchase $purchase) {}
+    public function edit(Purchase $purchase)
+    {
+        $purchase->load('purchaseItems.medicine');
+        $suppliers = Supplier::orderBy('name')->get();
+        return view('purchases.edit', compact('purchase', 'suppliers'));
+    }
 
-    public function update(Request $request, Purchase $purchase) {}
+    public function update(Request $request, Purchase $purchase)
+    {
+        // Purchases can only update non-critical fields like status
+        $request->validate([
+            'status' => 'required|in:pending,received,cancelled',
+        ]);
+
+        $purchase->update(['status' => $request->status]);
+
+        return redirect()->route('purchases.show', $purchase)
+                         ->with('success', 'Purchase updated successfully!');
+    }
 
     public function destroy(Purchase $purchase)
     {
