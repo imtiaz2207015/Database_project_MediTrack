@@ -3,12 +3,17 @@
 
 @section('content')
 <div class="card">
-    <div class="card-header d-flex justify-content-between align-items-center">
-        <h3 class="card-title"><i class="fas fa-receipt mr-2"></i>Sale #{{ $sale->id }}</h3>
+<div class="card-header d-flex justify-content-between align-items-center">
+    <h3 class="card-title"><i class="fas fa-receipt mr-2"></i>Sale #{{ $sale->id }}</h3>
+    <div>
+        <a href="{{ route('sales.invoice', $sale) }}" class="btn btn-success btn-sm">
+            <i class="fas fa-file-invoice mr-1"></i> Print Invoice
+        </a>
         <a href="{{ route('sales.index') }}" class="btn btn-secondary btn-sm">
             <i class="fas fa-arrow-left"></i> Back
         </a>
     </div>
+</div>
     <div class="card-body">
         <div class="row mb-4">
             <div class="col-md-6">

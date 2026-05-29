@@ -76,8 +76,13 @@
                     </td>
                     <td>{{ $sale->created_at->format('d M Y') }}</td>
                     <td>
-                        <a href="{{ route('sales.show', $sale) }}"
-                           class="btn btn-xs btn-info"><i class="fas fa-eye"></i></a>
+                       <a href="{{ route('sales.show', $sale) }}"
+                       class="btn btn-xs btn-info"><i class="fas fa-eye"></i></a>
+                       <a href="{{ route('sales.invoice', $sale) }}"
+                        class="btn btn-xs btn-success"
+                         title="Print Invoice">
+                         <i class="fas fa-file-invoice"></i>
+                       </a>
                         <form action="{{ route('sales.destroy', $sale) }}"
                               method="POST" class="d-inline"
                               onsubmit="return confirm('Delete this sale and restore stock?')">

@@ -125,4 +125,10 @@ class SaleController extends Controller
         return redirect()->route('sales.index')
                          ->with('success', 'Sale deleted and stock restored!');
     }
+
+    public function invoice(Sale $sale)
+{
+    $sale->load(['customer', 'user', 'saleItems.medicine', 'prescription']);
+    return view('sales.invoice', compact('sale'));
+}
 }

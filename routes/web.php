@@ -25,6 +25,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('suppliers', SupplierController::class);
     Route::resource('customers', CustomerController::class);
     Route::resource('sales', SaleController::class);
+    Route::get('/sales/{sale}/invoice', [SaleController::class, 'invoice'])->name('sales.invoice');
     Route::resource('purchases', PurchaseController::class);
     Route::resource('stock-adjustments', StockAdjustmentController::class);
     Route::resource('prescriptions', PrescriptionController::class);
