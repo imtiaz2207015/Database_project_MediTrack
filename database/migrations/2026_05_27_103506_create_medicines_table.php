@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -18,7 +19,7 @@ return new class extends Migration
         $table->string('name');
         $table->string('generic_name')->nullable();
         $table->string('brand')->nullable();
-        $table->enum('dosage_form', ['tablet','capsule','syrup','injection','cream','drops','other']);
+        $table->string('dosage_form');
         $table->string('strength')->nullable();
         $table->decimal('price', 10, 2);
         $table->integer('stock_quantity')->default(0);
@@ -28,6 +29,9 @@ return new class extends Migration
         $table->text('description')->nullable();
         $table->timestamps();
     });
+    
+    // Add CHECK constraint for dosage_form (Oracle doesn't support ENUM)
+    DB::statement("ALTER TABLE medicines ADD CONSTRAINT chk_dosage_form CHECK (dosage_form IN ('tablet','capsule','syrup','injection','cream','drops','other'))");
 }
 
     /**

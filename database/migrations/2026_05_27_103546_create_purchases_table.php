@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -16,10 +17,13 @@ public function up(): void
         $table->foreignId('supplier_id')->constrained()->onDelete('cascade');
         $table->foreignId('user_id')->constrained()->onDelete('cascade');
         $table->decimal('total_amount', 10, 2);
-        $table->enum('status', ['received','pending','cancelled'])->default('received');
+        $table->string('status')->default('received');
         $table->date('purchase_date');
         $table->timestamps();
     });
+    
+    // Add CHECK constraint for Oracle (doesn't support ENUM)
+    DB::statement("ALTER TABLE purchases ADD CONSTRAINT chk_purchase_status CHECK (status IN ('received','pending','cancelled'))");
 }
 
     /**
