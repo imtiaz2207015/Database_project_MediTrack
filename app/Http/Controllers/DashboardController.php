@@ -32,10 +32,17 @@ class DashboardController extends Controller
 
       $monthlySales = collect(range(5, 0))->map(function($monthsAgo) {
     $date  = now()->subMonths($monthsAgo);
-    $total = Sale::where('status', 'completed')
-                 ->whereYear('created_at', $date->year)
-                 ->whereMonth('created_at', $date->month)
-                 ->sum('paid_amount');
+    $total = DB::selectOne("
+        SELECT NVL(SUM(paid_amount), 0) AS total
+        FROM sales
+        WHERE status = 'completed'
+        AND TO_CHAR(created_at, 'YYYY') = :year
+        AND TO_CHAR(created_at, 'MM')   = :month
+    ", [
+        'year'  => $date->format('Y'),
+        'month' => $date->format('m'),
+    ])->total;
+
     return [
         'month' => $date->format('M Y'),
         'total' => $total
