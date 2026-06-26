@@ -192,7 +192,7 @@ class DatabaseSeeder extends Seeder
         // -----------------------------------------------
         DB::table('stock_adjustments')->insert([
             ['medicine_id'=>8, 'user_id'=>1,'type'=>'decrease','quantity'=>5, 'reason'=>'Damaged bottles found in storage',     'created_at'=>now(),'updated_at'=>now()],
-            ['medicine_id'=>15,'user_id'=>2,'type'=>'decrease','quantity'=>3, 'reason'=>'Expired stock removed',                'created_at'=>now(),'updated_at'=>now()],
+            ['medicine_id'=>14,'user_id'=>2,'type'=>'decrease','quantity'=>3, 'reason'=>'Expired stock removed',                'created_at'=>now(),'updated_at'=>now()],
             ['medicine_id'=>4, 'user_id'=>1,'type'=>'increase','quantity'=>100,'reason'=>'Emergency restock from local supplier','created_at'=>now(),'updated_at'=>now()],
             ['medicine_id'=>11,'user_id'=>3,'type'=>'decrease','quantity'=>10,'reason'=>'Donated to health camp',               'created_at'=>now(),'updated_at'=>now()],
             ['medicine_id'=>7, 'user_id'=>2,'type'=>'increase','quantity'=>50,'reason'=>'Bonus stock from supplier promotion',  'created_at'=>now(),'updated_at'=>now()],

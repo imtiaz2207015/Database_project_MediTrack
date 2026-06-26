@@ -1,4 +1,9 @@
 <x-guest-layout>
+    <div class="text-center mb-6">
+        <h1 class="text-3xl font-semibold text-slate-900">MediTrack Login</h1>
+        <p class="mt-2 text-sm text-slate-500">Sign in as Pharmacist</p>
+    </div>
+
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -32,16 +37,24 @@
             </label>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
+        <div class="flex items-center justify-between mt-4">
+            <div class="text-sm">
+                <a class="underline text-sm text-[#2e7d8c] hover:text-[#1e2a3a] rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2e7d8c]" href="{{ route('register') }}">
+                    {{ __('Create an account') }}
                 </a>
-            @endif
+            </div>
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
+            <div class="flex items-center space-x-3">
+                @if (Route::has('password.request'))
+                    <a class="underline text-sm text-slate-500 hover:text-slate-700 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2e7d8c]" href="{{ route('password.request') }}">
+                        {{ __('Forgot your password?') }}
+                    </a>
+                @endif
+
+                <x-primary-button>
+                    {{ __('Log in') }}
+                </x-primary-button>
+            </div>
         </div>
     </form>
 </x-guest-layout>

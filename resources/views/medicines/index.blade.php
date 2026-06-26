@@ -74,14 +74,18 @@
                 <tr class="{{ $med->stock_quantity <= $med->reorder_level ? 'table-danger' : '' }}">
                     <td>{{ $loop->iteration }}</td>
                     <td>
-                        <strong>{{ $med->name }}</strong>
-                        @if($med->generic_name)
-                            <br><small class="text-muted">{{ $med->generic_name }}</small>
-                        @endif
-                        @if($med->brand)
-                            <br><small class="text-muted">{{ $med->brand }}</small>
-                        @endif
-                    </td>
+    <strong>{{ $med->name }}</strong>
+    @if($med->generic_name)
+        <br><small style="color:#5a6a85; font-size:0.75rem;">
+            <i class="fas fa-dna mr-1" style="color:#9aa8c0;"></i>{{ $med->generic_name }}
+        </small>
+    @endif
+    @if($med->brand)
+        <br><span class="badge badge-light border mt-1" style="color:#2d3561; font-size:0.7rem; font-weight:600; letter-spacing:0.3px;">
+            <i class="fas fa-tag mr-1"></i>{{ $med->brand }}
+        </span>
+    @endif
+</td>
                     <td><span class="badge badge-info">{{ $med->category->name }}</span></td>
                     <td>{{ ucfirst($med->dosage_form) }}</td>
                     <td>{{ $med->strength ?? '—' }}</td>

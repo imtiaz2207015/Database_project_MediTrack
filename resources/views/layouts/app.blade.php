@@ -224,8 +224,20 @@ h1,h2,h3,h4,h5,h6,
 .card-info      > .card-header { border-left: 4px solid #2d3561 !important; }
 
 /* ── Pagination ── */
-.page-link { color: #1a1f36 !important; border-radius: 6px !important; margin: 0 2px; border-color: #dde1f0 !important; }
-.page-item.active .page-link { background: #1a1f36 !important; border-color: #1a1f36 !important; color: #f0c040 !important; }
+.page-link {
+    color: #1a1f36 !important;
+    border-radius: 6px !important;
+    margin: 0 2px;
+    border-color: #dde1f0 !important;
+    font-size: 0.78rem !important;
+    padding: 0.25rem 0.5rem !important;
+    line-height: 1.4 !important;
+}
+.page-item.active .page-link {
+    background: #1a1f36 !important;
+    border-color: #1a1f36 !important;
+    color: #f0c040 !important;
+}
 
 /* ── Smooth transitions ── */
 .main-sidebar, .main-header { transition: all 0.3s ease; }
