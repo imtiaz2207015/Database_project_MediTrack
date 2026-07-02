@@ -16,20 +16,8 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans text-slate-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-[radial-gradient(circle_at_top,_#2e7d8c,_#1e2a3a)]">
-
-            <!-- Branding -->
-            <div class="text-center mb-6">
-                <h1 class="text-4xl font-bold text-white" style="font-family: 'Poppins', sans-serif;">
-                    🏥 MediTrack
-                </h1>
-                <p class="mt-1 text-sm text-teal-200" style="font-family: 'Inter', sans-serif;">
-                    Pharmacy Management System
-                </p>
-            </div>
-
-            <!-- Card -->
-            <div class="w-full sm:max-w-md mt-2 px-6 py-8 bg-white/95 border border-teal-500 shadow-xl shadow-[#1e2a3a]/20 overflow-hidden sm:rounded-3xl">
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 px-4 bg-[radial-gradient(circle_at_top,_#2e7d8c,_#1e2a3a)]">
+            <div class="w-full sm:max-w-md">
                 {{ $slot }}
             </div>
         </div>

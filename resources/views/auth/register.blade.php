@@ -1,67 +1,169 @@
-<x-guest-layout>
-    <div class="text-center mb-6">
-        <h1 class="text-2xl font-semibold text-slate-900" style="font-family: 'Poppins', sans-serif;">Create your account</h1>
-        <p class="mt-2 text-sm text-slate-500">Register as Pharmacist</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Register - MediTrack</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at top, #2e7d8c, #1e2a3a);
+            padding: 20px;
+        }
+        .auth-card {
+            width: 100%;
+            max-width: 380px;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        .auth-logo {
+            background: #f8fafc;
+            padding: 18px;
+            display: flex;
+            justify-content: center;
+        }
+        .auth-logo img {
+            height: 60px;
+            width: auto;
+        }
+        .auth-body {
+            padding: 28px 32px;
+        }
+        .auth-subtitle {
+            text-align: center;
+            color: #64748b;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #334155;
+            margin-bottom: 5px;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 9px 12px;
+            font-size: 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            outline: none;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #2e7d8c;
+            box-shadow: 0 0 0 3px rgba(46,125,140,0.15);
+        }
+        .error-text {
+            color: #dc2626;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+        .links-row {
+            text-align: center;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+        .links-row a {
+            color: #2e7d8c;
+            text-decoration: underline;
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 11px;
+            background: #2e7d8c;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .btn-submit:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-card">
+        <div class="auth-logo">
+            <img src="{{ asset('images/medi.png') }}" alt="MediTrack">
+        </div>
+
+        <div class="auth-body">
+            <p class="auth-subtitle">Register as Pharmacist</p>
+
+            <form method="POST" action="{{ route('register') }}">
+                @csrf
+
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name">
+                    @error('name')
+                        <div class="error-text">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="username">
+                    @error('email')
+                        <div class="error-text">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" name="password" required autocomplete="new-password">
+                    @error('password')
+                        <div class="error-text">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="password_confirmation">Confirm Password</label>
+                    <input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password">
+                    @error('password_confirmation')
+                        <div class="error-text">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select id="role" name="role" required>
+                        <option value="Pharmacist" selected>Pharmacist</option>
+                    </select>
+                    @error('role')
+                        <div class="error-text">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="links-row">
+                    <a href="{{ route('login') }}">Already have an account? Sign in</a>
+                </div>
+
+                <button type="submit" class="btn-submit">Register</button>
+            </form>
+        </div>
     </div>
 
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
-
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
-
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <!-- Role -->
-        <div class="mt-4">
-            <x-input-label for="role" :value="__('Role')" />
-            <select id="role" name="role" required
-                class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-[#2e7d8c] focus:ring focus:ring-[#2e7d8c]/50">
-                <option value="Pharmacist" selected>{{ __('Pharmacist') }}</option>
-            </select>
-            <x-input-error :messages="$errors->get('role')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-between mt-6">
-            <a href="{{ route('login') }}"
-               class="text-sm font-medium hover:underline"
-               style="color: #2e7d8c;">
-                Already have an account? Sign in
-            </a>
-
-            <button type="submit"
-                class="px-6 py-2 rounded-lg text-white text-sm font-semibold transition hover:opacity-90"
-                style="background-color: #2e7d8c;">
-                Register
-            </button>
-        </div>
-    </form>
-</x-guest-layout>
+</body>
+</html>
