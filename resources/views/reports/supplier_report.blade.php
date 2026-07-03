@@ -16,25 +16,29 @@
         <table class="table table-hover table-striped mb-0">
             <thead class="thead-dark">
                 <tr>
+                    <th>#</th>
                     <th>Supplier</th>
+                    <th>Contact Person</th>
                     <th>Phone</th>
-                    <th>Email</th>
-                    <th>Total Orders</th>
-                    <th>Total Purchase Amount (৳)</th>
-                    <th>Medicine Supplied</th>
-                    <th>Current Stock</th>
+                    <th>Total Purchases</th>
+                    <th>Total Spent (৳)</th>
+                    <th>Last Purchase</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse($data as $row)
+                @forelse($data as $i => $row)
                 <tr>
-                    <td><strong>{{ $row->supplier_name }}</strong></td>
+                    <td>{{ $i + 1 }}</td>
+                    <td><strong>{{ $row->supplier }}</strong></td>
+                    <td>{{ $row->contact_person ?? '—' }}</td>
                     <td>{{ $row->phone }}</td>
-                    <td>{{ $row->email }}</td>
-                    <td><span class="badge badge-info">{{ $row->total_orders }}</span></td>
-                    <td><strong>৳ {{ number_format($row->total_purchase_amount, 2) }}</strong></td>
-                    <td>{{ $row->medicine_name }}</td>
-                    <td>{{ $row->stock_quantity }}</td>
+                    <td><span class="badge badge-info">{{ $row->total_purchases }}</span></td>
+                    <td><strong>৳ {{ number_format($row->total_spent, 2) }}</strong></td>
+                    <td>
+                        {{ $row->last_purchase
+                            ? \Carbon\Carbon::parse($row->last_purchase)->format('d M Y')
+                            : '—' }}
+                    </td>
                 </tr>
                 @empty
                 <tr>

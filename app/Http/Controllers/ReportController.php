@@ -36,14 +36,18 @@ class ReportController extends Controller
     public function stockReport()
     {
         $pdo  = DB::getPdo();
-        $stmt = $pdo->prepare("BEGIN GetLowStockMedicines(:p_cursor); END;");
+        $stmt = $pdo->prepare("BEGIN get_stock_report(:p_cursor); END;");
         $cursor = null;
         $stmt->bindParam(':p_cursor', $cursor, \PDO::PARAM_STMT);
         $stmt->execute();
         oci_execute($cursor, OCI_DEFAULT);
         $data = [];
         while ($row = oci_fetch_assoc($cursor)) {
-            $data[] = (object) array_change_key_case($row, CASE_LOWER);
+            $row = array_change_key_case($row, CASE_LOWER);
+            // Map original field names to what the view expects
+            $row['category_name'] = $row['category'];
+            $row['supplier_name'] = $row['supplier'];
+            $data[] = (object) $row;
         }
 
         return view('reports.stock_report', compact('data'));
@@ -68,39 +72,27 @@ class ReportController extends Controller
         return view('reports.top_customers', compact('data', 'limit'));
     }
 
-public function topMedicines(Request $request)
-{
-    $limit = (int) ($request->limit ?? 5);
+    public function topMedicines(Request $request)
+    {
+        $limit = (int) ($request->limit ?? 5);
 
-    $pdo  = DB::getPdo();
-    $stmt = $pdo->prepare("BEGIN GetTopMedicines(:p_limit, :p_cursor); END;");
-    $stmt->bindParam(':p_limit',  $limit, \PDO::PARAM_INT);
-    $cursor = null;
-    $stmt->bindParam(':p_cursor', $cursor, \PDO::PARAM_STMT);
-    $stmt->execute();
-    oci_execute($cursor, OCI_DEFAULT);
-    $data = [];
-    while ($row = oci_fetch_assoc($cursor)) {
-        $data[] = (object) array_change_key_case($row, CASE_LOWER);
+        $pdo  = DB::getPdo();
+        $stmt = $pdo->prepare("BEGIN get_top_medicines(:p_limit, :p_cursor); END;");
+        $stmt->bindParam(':p_limit',  $limit, \PDO::PARAM_INT);
+        $cursor = null;
+        $stmt->bindParam(':p_cursor', $cursor, \PDO::PARAM_STMT);
+        $stmt->execute();
+        oci_execute($cursor, OCI_DEFAULT);
+        $data = [];
+        while ($row = oci_fetch_assoc($cursor)) {
+            $row = array_change_key_case($row, CASE_LOWER);
+            // Map original field names to what the view expects
+            $row['name'] = $row['medicine_name'];
+            $row['total_quantity_sold'] = $row['total_qty_sold'];
+            $data[] = (object) $row;
+        }
+
+        return view('reports.top_medicines', compact('data', 'limit'));
     }
 
-    return view('reports.top_medicines', compact('data', 'limit'));
-}
-
-public function supplierReport()
-{
-    $pdo  = DB::getPdo();
-    $stmt = $pdo->prepare("BEGIN GetSupplierReport(:p_cursor); END;");
-    $cursor = null;
-    $stmt->bindParam(':p_cursor', $cursor, \PDO::PARAM_STMT);
-    $stmt->execute();
-    oci_execute($cursor, OCI_DEFAULT);
-    $data = [];
-    while ($row = oci_fetch_assoc($cursor)) {
-        $data[] = (object) array_change_key_case($row, CASE_LOWER);
-    }
-
-    return view('reports.supplier_report', compact('data'));
-}
-    
 }
