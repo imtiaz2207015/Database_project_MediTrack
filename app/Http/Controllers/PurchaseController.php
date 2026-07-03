@@ -67,8 +67,7 @@ class PurchaseController extends Controller
                     'subtotal'    => $subtotal,
                 ];
 
-                // Increase stock
-                Medicine::find($item['id'])->increment('stock_quantity', $item['qty']);
+                // Stock is increased automatically by the AFTER_PURCHASE_ITEM_INSERT trigger
             }
 
             $purchase = Purchase::create([
@@ -118,10 +117,7 @@ class PurchaseController extends Controller
     public function destroy(Purchase $purchase)
     {
         DB::transaction(function () use ($purchase) {
-            foreach ($purchase->purchaseItems as $item) {
-                $item->medicine->decrement('stock_quantity', $item->quantity);
-            }
-            $purchase->purchaseItems()->delete();
+            $purchase->purchaseItems()->delete(); // trigger reverses stock automatically
             $purchase->delete();
         });
 

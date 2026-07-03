@@ -72,7 +72,7 @@ class SaleController extends Controller
                 ];
 
                 // Reduce stock
-                $medicine->decrement('stock_quantity', $item['qty']);
+               
             }
 
             $discount = $request->discount ?? 0;
@@ -86,7 +86,7 @@ class SaleController extends Controller
                 'payment_method' => $request->payment_method,
                 'status'         => 'completed',
             ]);
-
+            
             foreach ($items as $item) {
                 $item['sale_id'] = $sale->id;
                 SaleItem::create($item);
@@ -112,19 +112,15 @@ class SaleController extends Controller
     public function update(Request $request, Sale $sale) {}
 
     public function destroy(Sale $sale)
-    {
-        DB::transaction(function () use ($sale) {
-            // Restore stock
-            foreach ($sale->saleItems as $item) {
-                $item->medicine->increment('stock_quantity', $item->quantity);
-            }
-            $sale->saleItems()->delete();
-            $sale->delete();
-        });
+{
+    DB::transaction(function () use ($sale) {
+        $sale->saleItems()->delete(); // trigger restores stock automatically
+        $sale->delete();
+    });
 
-        return redirect()->route('sales.index')
-                         ->with('success', 'Sale deleted and stock restored!');
-    }
+    return redirect()->route('sales.index')
+                     ->with('success', 'Sale deleted and stock restored!');
+}
 
     public function invoice(Sale $sale)
 {

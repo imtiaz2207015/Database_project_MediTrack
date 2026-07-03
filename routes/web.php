@@ -33,9 +33,9 @@ Route::middleware(['auth'])->group(function () {
 Route::prefix('reports')->name('reports.')->group(function () {
     Route::get('/',                [ReportController::class, 'index'])->name('index');
     Route::get('/monthly-sales',   [ReportController::class, 'monthlySales'])->name('monthly-sales');
-    Route::get('/top-medicines',   [ReportController::class, 'topMedicines'])->name('top-medicines');
-    Route::get('/category-revenue',[ReportController::class, 'categoryRevenue'])->name('category-revenue');
     Route::get('/stock',           [ReportController::class, 'stockReport'])->name('stock');
+    Route::get('/top-customers',   [ReportController::class, 'topCustomers'])->name('top-customers');
+    Route::get('/top-medicines',   [ReportController::class, 'topMedicines'])->name('top-medicines');
     Route::get('/suppliers',       [ReportController::class, 'supplierReport'])->name('suppliers');
 });
 
