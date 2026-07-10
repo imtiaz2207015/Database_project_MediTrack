@@ -16,7 +16,7 @@ public function up(): void
         $table->string('name');
         $table->string('phone')->nullable();
         $table->string('email')->nullable();
-        $table->text('address')->nullable();
+        $table->string('address', 500)->nullable();
         $table->timestamps();
     });
 }

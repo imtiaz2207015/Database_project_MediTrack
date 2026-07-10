@@ -1,38 +1,3 @@
-
-  CREATE TABLE "MEDI_TRACK"."STOCK_ADJUSTMENTS"
-   (    "ID" NUMBER(19,0) NOT NULL ENABLE,
-        "MEDICINE_ID" NUMBER(19,0) NOT NULL ENABLE,
-        "USER_ID" NUMBER(19,0) NOT NULL ENABLE,
-        "TYPE" VARCHAR2(255) NOT NULL ENABLE,
-        "QUANTITY" NUMBER(10,0) NOT NULL ENABLE,
-        "REASON" VARCHAR2(255),
-        "CREATED_AT" TIMESTAMP (6),
-        "UPDATED_AT" TIMESTAMP (6),
-         CHECK ("TYPE" in ('increase', 'decrease')) ENABLE,
-         CONSTRAINT "STOCK_ADJUSTMENTS_ID_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DE
-FAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "SYSTEM"  ENABLE,
-         CONSTRAINT "STOC_ADJUSTMENT_MEDICIN_ID_FK" FOREIGN KEY ("MEDICINE_ID")
-          REFERENCES "MEDI_TRACK"."MEDICINES" ("ID") ON DELETE CASCADE ENABLE,
-         CONSTRAINT "STOCK_ADJUSTMENTS_USER_ID_FK" FOREIGN KEY ("USER_ID")
-          REFERENCES "MEDI_TRACK"."USERS" ("ID") ON DELETE CASCADE ENABLE
-   ) SEGMENT CREATION IMMEDIATE
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DE
-FAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "SYSTEM"
-
-SQL> SPOOL OFF
-SQL> HOST cd
-C:\Users\rifaa\Desktop\app\oracle\product\11.2.0\server\bin
-
-SQL> SPOOL categories_schema.sql
-SQL> SELECT DBMS_METADATA.GET_DDL('TABLE', 'CATEGORIES') FROM DUAL;
-
 CREATE TABLE categories (
     id NUMBER(19,0) NOT NULL,
     name VARCHAR2(255) NOT NULL,
@@ -42,3 +7,24 @@ CREATE TABLE categories (
 
     CONSTRAINT categories_id_pk PRIMARY KEY (id)
 );
+
+
+INSERT INTO categories (id, name, description, created_at, updated_at) VALUES (1, 'Antibiotics', 'Medicines that kill or inhibit bacteria', SYSTIMESTAMP, SYSTIMESTAMP);
+INSERT INTO categories (id, name, description, created_at, updated_at) VALUES (2, 'Analgesics', 'Pain relieving medicines', SYSTIMESTAMP, SYSTIMESTAMP);
+INSERT INTO categories (id, name, description, created_at, updated_at) VALUES (3, 'Antacids', 'Medicines that neutralize stomach acid', SYSTIMESTAMP, SYSTIMESTAMP);
+INSERT INTO categories (id, name, description, created_at, updated_at) VALUES (4, 'Antihistamines', 'Medicines for allergic reactions', SYSTIMESTAMP, SYSTIMESTAMP);
+INSERT INTO categories (id, name, description, created_at, updated_at) VALUES (5, 'Vitamins', 'Nutritional supplements and vitamins', SYSTIMESTAMP, SYSTIMESTAMP);
+INSERT INTO categories (id, name, description, created_at, updated_at) VALUES (6, 'Antidiabetics', 'Medicines to control blood sugar levels', SYSTIMESTAMP, SYSTIMESTAMP);
+INSERT INTO categories (id, name, description, created_at, updated_at) VALUES (7, 'Antihypertensive', 'Medicines to lower high blood pressure', SYSTIMESTAMP, SYSTIMESTAMP);
+
+-- Read all categories
+SELECT * FROM categories;
+SELECT * FROM categories WHERE id = 1;
+
+-- Update a category
+UPDATE categories
+SET name = 'Painkillers', description = 'Analgesic medicines', updated_at = SYSTIMESTAMP
+WHERE id = 1;
+
+--Delete a category
+DELETE FROM categories WHERE id = 1;
