@@ -7,24 +7,23 @@ BEGIN
         SELECT 
             s.id AS supplier_id,
             s.name AS supplier_name,
+            s.contact_person,
             s.phone,
             s.email,
             supplier_totals.total_orders,
             supplier_totals.total_purchase_amount,
-            m.id AS medicine_id,
-            m.name AS medicine_name,
-            m.stock_quantity
+            supplier_totals.last_purchase
         FROM suppliers s
-        JOIN medicines m ON m.supplier_id = s.id
         JOIN (
             SELECT 
                 p.supplier_id,
                 COUNT(DISTINCT p.id) AS total_orders,
-                SUM(p.total_amount) AS total_purchase_amount
+                SUM(p.total_amount) AS total_purchase_amount,
+                MAX(p.purchase_date) AS last_purchase
             FROM purchases p
             WHERE p.status = 'received'
             GROUP BY p.supplier_id
         ) supplier_totals ON supplier_totals.supplier_id = s.id
-        ORDER BY s.name, m.name;
+        ORDER BY s.name;
 END GetSupplierReport;
 /

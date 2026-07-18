@@ -1,4 +1,4 @@
-CREATE OR REPLACE PROCEDURE GetTopMedicines (
+CREATE OR REPLACE PROCEDURE get_top_medicines (
     p_limit  IN NUMBER,
     p_cursor OUT SYS_REFCURSOR
 )
@@ -8,18 +8,22 @@ BEGIN
         SELECT * FROM (
             SELECT 
                 m.id,
-                m.name,
+                m.name AS medicine_name,
+                m.generic_name,
                 m.dosage_form,
                 m.strength,
-                SUM(si.quantity) AS total_quantity_sold,
-                SUM(si.subtotal) AS total_revenue
+                c.name AS category,
+                SUM(si.quantity) AS total_qty_sold,
+                SUM(si.subtotal) AS total_revenue,
+                COUNT(DISTINCT si.sale_id) AS times_sold
             FROM medicines m
+            JOIN categories c ON c.id = m.category_id
             JOIN sale_items si ON si.medicine_id = m.id
             JOIN sales s ON s.id = si.sale_id
             WHERE s.status = 'completed'
-            GROUP BY m.id, m.name, m.dosage_form, m.strength
-            ORDER BY total_quantity_sold DESC
+            GROUP BY m.id, m.name, m.generic_name, m.dosage_form, m.strength, c.name
+            ORDER BY total_qty_sold DESC
         )
         WHERE ROWNUM <= p_limit;
-END GetTopMedicines;
+END get_top_medicines;
 /
