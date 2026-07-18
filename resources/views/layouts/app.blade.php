@@ -22,18 +22,18 @@ h1,h2,h3,h4,h5,h6,
 
 /* ── Sidebar ── */
 .main-sidebar {
-    background: linear-gradient(180deg, #1a1f36 0%, #12162a 100%) !important;
+    background: linear-gradient(180deg, #244958 0%, #203747 100%) !important;
     box-shadow: 3px 0 15px rgba(0,0,0,0.3);
 }
 .brand-link {
-    background: linear-gradient(135deg, #1a1f36, #12162a) !important;
-    border-bottom: 1px solid rgba(240,192,64,0.2) !important;
+    background: linear-gradient(180deg, #244958, #203747) !important;
+    border-bottom: 1px solid rgba(255,255,255,0.1) !important;
     padding: 18px 15px !important;
 }
 .brand-text {
     font-size: 1.3rem !important;
     letter-spacing: 1px;
-    color: #f0c040 !important;
+    color: #FFFFFF !important;
 }
 
 .sidebar {
@@ -42,37 +42,37 @@ h1,h2,h3,h4,h5,h6,
 }
 .sidebar::-webkit-scrollbar { width: 3px; }
 .sidebar::-webkit-scrollbar-track { background: transparent; }
-.sidebar::-webkit-scrollbar-thumb { background: rgba(240,192,64,0.3); border-radius: 3px; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
 
 .nav-sidebar .nav-link {
-    color: #8892b0 !important;
+    color: #FFFFFF !important;
     border-radius: 8px !important;
     margin: 2px 8px !important;
     transition: all 0.25s ease;
 }
 .nav-sidebar .nav-link:hover {
-    background: rgba(240,192,64,0.1) !important;
-    color: #f0c040 !important;
+    background: rgba(255,255,255,0.08) !important;
+    color: #FFFFFF !important;
     transform: translateX(3px);
 }
 .nav-sidebar .nav-link.active {
-    background: #f0c040 !important;
-    color: #1a1f36 !important;
+    background: #2E5A6B !important;
+    color: #FFFFFF !important;
     font-weight: 600;
-    box-shadow: 0 3px 10px rgba(240,192,64,0.3);
+    box-shadow: 0 3px 10px rgba(46,90,107,0.4);
 }
 .nav-sidebar .nav-link .nav-icon { color: inherit !important; }
 .nav-header {
-    color: #f0c040 !important;
+    color: #A8BDC7 !important;
     font-size: 0.68rem !important;
     letter-spacing: 1.5px;
     padding: 12px 16px 4px !important;
 }
 
 .user-panel {
-    border-bottom: 1px solid rgba(240,192,64,0.15) !important;
+    border-bottom: 1px solid rgba(255,255,255,0.1) !important;
 }
-.user-panel .info a { color: #ccd6f6 !important; font-size: 0.9rem; }
+.user-panel .info a { color: #FFFFFF !important; font-size: 0.9rem; }
 
 /* ── Top Navbar ── */
 .main-header.navbar {
@@ -107,12 +107,13 @@ h1,h2,h3,h4,h5,h6,
     margin-bottom: 20px;
 }
 .card-header {
-    background: #ffffff !important;
-    border-bottom: 1px solid #e8e8e8 !important;
+    background: linear-gradient(180deg, #244958 0%, #203747 100%) !important;
+    border-bottom: none !important;
     border-radius: 12px 12px 0 0 !important;
     padding: 14px 20px !important;
 }
-.card-title { color: #1a1f36 !important; font-weight: 600 !important; font-size: 1rem !important; }
+.card-title { color: #E8F0F2 !important; font-weight: 600 !important; font-size: 1rem !important; }
+.card-header .card-title i { color: #E8F0F2 !important; }
 .card-footer {
     background: #f5f7fa !important;
     border-top: 1px solid #e8e8e8 !important;
@@ -133,7 +134,7 @@ h1,h2,h3,h4,h5,h6,
 
 /* ── Tables ── */
 .table thead.thead-dark th {
-    background: linear-gradient(135deg, #1a1f36, #2d3561) !important;
+    background: linear-gradient(180deg, #244958 0%, #203747 100%) !important;
     color: #f0c040 !important;
     font-size: 0.8rem !important;
     letter-spacing: 0.5px;
@@ -217,11 +218,11 @@ h1,h2,h3,h4,h5,h6,
 ::-webkit-scrollbar-thumb { background: #1a1f36; border-radius: 3px; }
 
 /* ── Card variants ── */
-.card-primary   > .card-header { border-left: 4px solid #1a1f36 !important; }
-.card-success   > .card-header { border-left: 4px solid #f0c040 !important; }
+.card-primary   > .card-header { border-left: 4px solid #2E5A6B !important; }
+.card-success   > .card-header { border-left: 4px solid #3a7a6a !important; }
 .card-danger    > .card-header { border-left: 4px solid #dc2626 !important; }
-.card-warning   > .card-header { border-left: 4px solid #f0c040 !important; }
-.card-info      > .card-header { border-left: 4px solid #2d3561 !important; }
+.card-warning   > .card-header { border-left: 4px solid #d4a020 !important; }
+.card-info      > .card-header { border-left: 4px solid #244958 !important; }
 
 /* ── Pagination ── */
 .page-link {
@@ -309,14 +310,14 @@ body.sidebar-mini .sidebar { overflow-y: auto !important; height: calc(100vh - 1
 
         <div class="sidebar">
             <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center">
-                <div style="width:36px;height:36px;background:linear-gradient(135deg,#1a1f36,#2d3561);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:1rem;flex-shrink:0">
+                <div style="width:36px;height:36px;background:rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#FFFFFF;font-weight:700;font-size:1rem;flex-shrink:0">
                     {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                 </div>
                 <div class="info ml-2">
-                    <a href="#" class="d-block" style="color:#c8dfe8;font-weight:500;font-size:0.9rem">
+                    <a href="#" class="d-block" style="color:#FFFFFF;font-weight:500;font-size:0.9rem">
                         {{ Auth::user()->name }}
                     </a>
-                    <small style="color:#5a8a99">Pharmacist</small>
+                    <small style="color:#A8BDC7">Pharmacist</small>
                 </div>
             </div>
 

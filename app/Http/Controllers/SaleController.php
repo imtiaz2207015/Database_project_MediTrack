@@ -70,8 +70,6 @@ class SaleController extends Controller
                     'unit_price'  => $medicine->price,
                     'subtotal'    => $subtotal,
                 ];
-
-                // Reduce stock
                
             }
 
